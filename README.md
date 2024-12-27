@@ -1,1 +1,24 @@
-# Makalah-Matdis
+# Chemical Storage Optimization Utilizing the Welch-Powell Algorithm
+> Makalah IF2120 Matematika Diskrit
+## Project Overview
+This project ...
+## Project Structure
+The project is structured as below:
+```
+├── src/
+│   ├── graph_coloring.py                    
+│   ├── input.py             
+│   └── main.py
+└── README.md
+```
+## How to Use
+1. Clone the repository: 
+   ```sh
+   git clone https://github.com/naomirisaka/Makalah-Matdis.git
+
+2. Open the cloned local repository in an IDE that supports Python.
+
+3. Run the program:
+   ```sh
+   cd src
+   python main.py

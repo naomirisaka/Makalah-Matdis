@@ -5,12 +5,14 @@ This project ...
 ## Project Structure
 The project is structured as below:
 ```
-├── src/
-│   ├── graph_coloring.py                    
-│   ├── input.py             
-│   └── main.py
-└── README.md
+├── .gitignore
+├── README.md
+└── src/
+    ├── graph_coloring.py
+    ├── input.py
+    └── main.py
 ```
+
 ## How to Use
 1. Clone the repository: 
    ```sh

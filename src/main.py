@@ -8,7 +8,7 @@ def main():
     
     chemical_amt = len(chemicals)
     chemical_storage = [0 for i in range (chemical_amt)] # stores the storage number for each chemical
-    chemical_storage = color_graph(adj_mat, chemicals, chemical_storage, chemical_amt)
+    chemical_storage = assign_storage(adj_mat, chemicals, chemical_storage, chemical_amt)
 
     print("\nChemical storage allocation:")
     result, storage_temp = group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage)

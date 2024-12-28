@@ -1,37 +1,37 @@
 def create_adjacency_matrix(chemicals):  # adjacency matrix for the graph
     num_chemicals = len(chemicals)
-    matrix = [[0] * num_chemicals for _ in range(num_chemicals)]
+    mat = [[0] * num_chemicals for _ in range(num_chemicals)]
     
     for i in range(num_chemicals):
         for j in chemicals[i]["incompatible_with"]:
-            matrix[i][j-1] = 1  # incompatible
-            matrix[j-1][i] = 1  # incompatible
+            mat[i][j-1] = 1  # incompatible
+            mat[j-1][i] = 1  # incompatible
     
-    return matrix
+    return mat
 
-def sort_vertices_degree(graph):  # sorts vertices by degree in descending order
-    degrees = [sum(row) for row in graph]
-    sorted_vertices = sorted(range(len(graph)), key=lambda x: degrees[x], reverse=True)
-    return sorted_vertices
+def sort_chemicals_degree(adj_mat):  # sorts vertices by degree in descending order
+    degrees = [sum(row) for row in adj_mat]
+    sorted_chemicals = sorted(range(len(adj_mat)), key=lambda x: degrees[x], reverse=True)
+    return sorted_chemicals
 
-def check_vertex(graph, vertex, vertices, color_list, curr_color):  # checks if a vertex can be colored with the current color
-    for i in range(len(graph)):
-        if graph[vertex][i] == 1 and color_list[i] == curr_color:  # checks adjacency
+def check_chemical(adj_mat, chemical, chemicals, chemical_storage, curr_unit):  # checks if a vertex can be colored with the current color
+    for i in range(len(adj_mat)):
+        if adj_mat[chemical][i] == 1 and chemical_storage[i] == curr_unit:  # checks adjacency
             return False
-        if vertices[vertex]["temperature"] != vertices[i]["temperature"] and color_list[i] == curr_color:  # checks temperature
+        if chemicals[chemical]["temperature"] != chemicals[i]["temperature"] and chemical_storage[i] == curr_unit:  # checks temperature
             return False
     return True
 
-def color_graph(graph, vertices, color_list, color_amt):  # assigns colors to the vertices
-    sorted_vertices = sort_vertices_degree(graph)
+def assign_storage(adj_mat, chemicals, chemical_storage, chemical_amt):  # assigns colors to the vertices
+    sorted_chemicals = sort_chemicals_degree(adj_mat)
     
-    for vertex in sorted_vertices:
-        for curr_color in range(color_amt):
-            if check_vertex(graph, vertex, vertices, color_list, curr_color):
-                color_list[vertex] = curr_color
+    for chemical in sorted_chemicals:
+        for curr_unit in range(chemical_amt):
+            if check_chemical(adj_mat, chemical, chemicals, chemical_storage, curr_unit):
+                chemical_storage[chemical] = curr_unit
                 break
 
-    return color_list
+    return chemical_storage
 
 def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # groups the chemicals by storage unit
     result = [[] for _ in range(max(chemical_storage) + 1)]  

@@ -1,21 +1,24 @@
 from input import *
-from graph_coloring import *
+from storage_allocation import *
 
 def main():
-    chemicals, chemical_names = get_input_data()
+    print("-------------- Chemical Storage Allocator --------------")
+    chemicals, chemical_names = input_chemical_info()
+    adj_mat = create_adjacency_matrix(chemicals) # adjacency matrix for the graph
     
-    adjacency_matrix = create_adjacency_matrix(chemicals)
-    num_colors = len(chemicals)
-    coloring = [-1] * len(chemicals)
+    chemical_amt = len(chemicals)
+    chemical_storage = [0 for i in range (chemical_amt)] # stores the storage number for each chemical
+    chemical_storage = color_graph(adj_mat, chemicals, chemical_storage, chemical_amt)
+
+    print("\nChemical storage allocation:")
+    result, storage_temp = group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage)
     
-    coloring = graph_coloring(adjacency_matrix, num_colors, chemicals, coloring)
-    
-    print("\nChemical storage allocation considering incompatibilities and temperature requirements:")
-    result, container_temperatures = graph_color_list(adjacency_matrix, coloring, chemical_names, chemicals)
-    
+    print(f"The number of storage units needed is {len(result)}.") 
+
     for i, color_list in enumerate(result):
-        print(f"Container {i+1} contains: {', '.join(color_list)}")
-        print(f"Container {i+1} temperature: {container_temperatures[i]}")
+        print(f"Storage unit {i+1} ({storage_temp[i]}) contains: {', '.join(color_list)}")
+    
+    print("\nAllocation completed.")
 
 if __name__ == "__main__":
     main()

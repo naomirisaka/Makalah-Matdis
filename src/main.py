@@ -6,10 +6,14 @@ def main():
     
     chemicals, chemical_names = input_chemical_info()
     adj_mat = create_adjacency_matrix(chemicals) # adjacency matrix for the graph
-    
+    # for row in adj_mat:
+    #     print(row)
+
     chemical_amt = len(chemicals)
     chemical_storage = [0 for i in range (chemical_amt)] # stores the storage number for each chemical
     chemical_storage = assign_storage(adj_mat, chemicals, chemical_storage, chemical_amt)
+    # print()
+    # print(chemical_storage)
 
     print("\nChemical storage allocation:")
     result, storage_temp = group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage)

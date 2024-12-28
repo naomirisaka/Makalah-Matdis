@@ -8,9 +8,9 @@ The project is structured as below:
 ├── .gitignore
 ├── README.md
 └── src/
-    ├── graph_coloring.py
     ├── input.py
-    └── main.py
+    ├── main.py
+    └── storage_allocation.py
 ```
 
 ## How to Use

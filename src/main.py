@@ -3,6 +3,7 @@ from storage_allocation import *
 
 def main():
     print("-------------- Chemical Storage Allocator --------------")
+    
     chemicals, chemical_names = input_chemical_info()
     adj_mat = create_adjacency_matrix(chemicals) # adjacency matrix for the graph
     

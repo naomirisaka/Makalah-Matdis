@@ -16,10 +16,12 @@ def sort_chemicals_degree(adj_mat):  # sorts vertices by degree in descending or
 
 def check_chemical(adj_mat, chemical, chemicals, chemical_storage, curr_unit):  # checks if a vertex can be colored with the current color
     for i in range(len(adj_mat)):
-        if adj_mat[chemical][i] == 1 and chemical_storage[i] == curr_unit:  # checks adjacency
+        if (adj_mat[chemical][i] == 1) and (chemical_storage[i] == curr_unit):  # checks adjacency
             return False
-        if chemicals[chemical]["temperature"] != chemicals[i]["temperature"] and chemical_storage[i] == curr_unit:  # checks temperature
+        
+        if (chemicals[chemical]["temperature"] != chemicals[i]["temperature"]) and (chemical_storage[i] == curr_unit):  # checks temperature
             return False
+        
     return True
 
 def assign_storage(adj_mat, chemicals, chemical_storage, chemical_amt):  # assigns colors to the vertices
@@ -44,6 +46,7 @@ def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # gr
         
         if storage_temp[idx] == '':
             storage_temp[idx] = chemicals[i]["temperature"]
+        
         else:
             if storage_temp[idx] != chemicals[i]["temperature"]:
                 result.append([chemical_names[i]])
@@ -58,9 +61,11 @@ def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # gr
         if result[i]:
             temp = storage_temp[i]
             found = False
+
             for j in range(len(final_result)):
                 if final_storage_temp[j] == temp:
                     can_merge = True
+
                     for chem in result[i]:
                         for existing_chem in final_result[j]:
                             idx1 = chemical_names.index(chem)
@@ -68,12 +73,15 @@ def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # gr
                             if adj_mat[idx1][idx2] == 1: 
                                 can_merge = False
                                 break
+                            
                         if not can_merge:
                             break
+                    
                     if can_merge:
                         final_result[j].extend(result[i])
                         found = True
                         break
+
             if not found:
                 final_result.append(result[i])
                 final_storage_temp.append(temp)

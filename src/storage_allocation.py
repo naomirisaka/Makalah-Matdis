@@ -37,6 +37,7 @@ def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # gr
     result = [[] for _ in range(max(chemical_storage) + 1)]  
     storage_temp = ['' for _ in range(len(result))]
 
+    # split based on temperatures
     for i in range(len(adj_mat)):
         idx = chemical_storage[i]
         result[idx].append(chemical_names[i])
@@ -44,12 +45,12 @@ def group_chemicals(adj_mat, chemicals, chemical_names, chemical_storage):  # gr
         if storage_temp[idx] == '':
             storage_temp[idx] = chemicals[i]["temperature"]
         else:
-            if storage_temp[idx] != chemicals[i]["temperature"]: # split if different temperatures
+            if storage_temp[idx] != chemicals[i]["temperature"]:
                 result.append([chemical_names[i]])
                 storage_temp.append(chemicals[i]["temperature"])
                 result[idx].remove(chemical_names[i])
 
-    # merge compatible chemicals into fewer containers
+    # split based on incompatiblity
     final_result = []
     final_storage_temp = []
     

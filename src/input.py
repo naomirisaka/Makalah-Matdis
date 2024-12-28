@@ -1,6 +1,3 @@
-def validate_temperature(temp): # temperature validation
-    return (temp in ["cold", "room"])
-
 def validate_chemical_indices(chemical_indices, chemical_amt): # chemical indices validation
     if not chemical_indices: # no incompatible chemicals
         return True
@@ -11,14 +8,18 @@ def validate_chemical_indices(chemical_indices, chemical_amt): # chemical indice
         
     return (len(chemical_indices) == len(set(chemical_indices))) 
 
+def validate_temperature(temp): # temperature validation
+    return (temp in ["cold", "room"])
+
 def input_chemical_info():
-    while True: # number of chemicals input
+    while True: # the number of chemicals input
         try:
             chemical_amt = int(input("Enter the number of chemicals: "))
             if chemical_amt <= 0:
                 print("The number of chemicals must be positive.")
                 continue
             break
+
         except ValueError:
             print("The number of chemicals must be an integer.")
     
@@ -27,10 +28,13 @@ def input_chemical_info():
     for i in range(chemical_amt): # chemical name input and validation
         while True:
             name = input(f"Enter the name of chemical {i+1}: ").strip()
+            
             if not name:
                 print("Chemical name cannot be empty. Please try again.")
+            
             elif name in chemical_names:
                 print(f"The'{name}' has already been added. Please enter a different chemical.")
+            
             else:
                 chemical_names.append(name)
                 break
@@ -40,6 +44,7 @@ def input_chemical_info():
 
         while True: # chemical incompatibility input and validation
             incompatible_str = input(f"Enter the indices of incompatible chemicals: ")
+            
             if incompatible_str:
                 try:
                     incompatible_chemicals = list(map(int, incompatible_str.split(',')))
@@ -49,6 +54,7 @@ def input_chemical_info():
                     break
                 except ValueError:
                     print("Indicies must be separated by commas. Please try again.")
+            
             else:
                 incompatible_chemicals = []
                 break
